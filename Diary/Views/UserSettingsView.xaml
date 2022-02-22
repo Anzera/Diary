@@ -1,0 +1,103 @@
+﻿<mah:MetroWindow x:Class="Diary.Views.UserSettingsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:Diary"
+        mc:Ignorable="d"
+        Name="UserSettingsWindow"
+        WindowStartupLocation="CenterScreen"
+        Title="Ustawienia" Height="255" Width="485">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition  />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label
+            Content="Adres Serwera"
+            Margin="5"
+            />
+        <TextBox
+            Text="{Binding UserSettings.ServerAdres, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+            Grid.Column="1"
+            Margin="5"
+            />
+
+        <Label
+            Grid.Row="1"
+            Content="Nazwa Serwera"
+            Margin="5"
+            />
+        <TextBox
+            Text="{Binding UserSettings.ServerName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+            Grid.Column="1"
+            Grid.Row="1"
+            Margin="5"
+            />
+
+        <Label
+            Grid.Row="2"
+            Content="Nazwa bazy danych"
+            Margin="5"
+            />
+        <TextBox
+            Text="{Binding UserSettings.DbName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+            Grid.Column="1"
+            Grid.Row="2"
+            Margin="5"
+            />
+
+        <Label
+            Grid.Row="3"
+            Content="Nazwa użytkownika"
+            Margin="5"
+            />
+        <TextBox
+            Text="{Binding UserSettings.User, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+            Grid.Column="1"
+            Grid.Row="3"
+            Margin="5"
+            />
+
+        <Label
+            Grid.Row="4"
+            Content="Hasło"
+            Margin="5"
+            />
+        <TextBox
+            Text="{Binding UserSettings.Password, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+            Grid.Row="4"
+            Grid.Column="1"
+            Margin="5"
+            />
+
+        <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right">
+            <Button 
+                Command="{Binding CloseSettingsCommand}"
+                CommandParameter="{Binding ElementName=UserSettingsWindow}"
+                Content="Anuluj" 
+                Height="25" 
+                Width="100" 
+                Margin="5"
+                />
+            <Button 
+                Command="{Binding ConfirmSettingsCommand}"
+                CommandParameter="{Binding ElementName=UserSettingsWindow}"
+                Content="Zatwierdź"
+                Height="25" 
+                Width="100" 
+                Margin="5"
+                />
+        </StackPanel>
+    </Grid>
+</mah:MetroWindow>
