@@ -12,13 +12,7 @@ namespace Diary.Models
 {
     public class UserSettings : IDataErrorInfo
     {
-        private bool _isServerAdresCorrect;
-        private bool _isServerNameCorrect;
-        private bool _isDbNameCorrect;
-        private bool _isUserCorrect;
-        private bool _isPasswordCorrect;
-
-        public static string ServerAdres
+        public string ServerAdres
         {
             get
             {
@@ -29,7 +23,7 @@ namespace Diary.Models
                 Settings.Default.ServerAdres = value;
             }
         }
-        public static string ServerName
+        public string ServerName
         {
             get
             {
@@ -40,7 +34,7 @@ namespace Diary.Models
                 Settings.Default.ServerName = value;
             }
         }
-        public static string DbName
+        public string DbName
         {
             get
             {
@@ -51,9 +45,7 @@ namespace Diary.Models
                 Settings.Default.DbName = value;
             }
         }
-
-
-        public static string User
+        public string User
         {
             get
             {
@@ -64,7 +56,7 @@ namespace Diary.Models
                 Settings.Default.User = value;
             }
         }
-        public static string Password
+        public string Password
         {
             get
             {
@@ -76,6 +68,11 @@ namespace Diary.Models
             }
         }
 
+        private bool _isServerAdresValid;
+        private bool _isServerNameValid;
+        private bool _isDbNameValid;
+        private bool _isUserValid;
+        private bool _isPasswordValid;
         public string Error {get; set;}
 
         public string this[string columnName]
@@ -88,60 +85,60 @@ namespace Diary.Models
                         if(string.IsNullOrWhiteSpace(ServerAdres))
                         {
                             Error = "Adres serwera jest wymagany";
-                            _isServerAdresCorrect = false;
+                            _isServerAdresValid = false;
                         }
                         else
                         {
                             Error = string.Empty;
-                            _isServerAdresCorrect = true;
+                            _isServerAdresValid = true;
                         }
                         break;
                     case nameof(ServerName):
                         if (string.IsNullOrWhiteSpace(ServerName))
                         {
                             Error = "Nazwa serwera jest wymagana";
-                            _isServerNameCorrect = false;
+                            _isServerNameValid = false;
                         }
                         else
                         {
                             Error = string.Empty;
-                            _isServerNameCorrect = true;
+                            _isServerNameValid = true;
                         }
                         break;
                     case nameof(DbName):
                         if (string.IsNullOrWhiteSpace(DbName))
                         {
                             Error = "Nazwa bazy danych jest wymagana";
-                            _isDbNameCorrect = false;
+                            _isDbNameValid = false;
                         }
                         else
                         {
                             Error = string.Empty;
-                            _isDbNameCorrect = true;
+                            _isDbNameValid = true;
                         }
                         break;
                     case nameof(User):
                         if (string.IsNullOrWhiteSpace(User))
                         {
                             Error = "Nazwa użytkownika jest wymagana";
-                            _isUserCorrect = false;
+                            _isUserValid = false;
                         }
                         else
                         {
                             Error = string.Empty;
-                            _isUserCorrect = true;
+                            _isUserValid = true;
                         }
                         break;
                     case nameof(Password):
                         if (string.IsNullOrWhiteSpace(Password))
                         {
                             Error = "Hasło jest wymagane";
-                            _isPasswordCorrect = false;
+                            _isPasswordValid = false;
                         }
                         else
                         {
                             Error = string.Empty;
-                            _isPasswordCorrect = true;
+                            _isPasswordValid = true;
                         }
                         break;
                     default:
@@ -154,15 +151,9 @@ namespace Diary.Models
         {
             get
             {
-                return _isServerAdresCorrect && _isServerNameCorrect && _isDbNameCorrect && _isUserCorrect && _isPasswordCorrect;
+                return _isServerAdresValid && _isServerNameValid && _isDbNameValid && _isUserValid && _isPasswordValid;
             }
         }
-
-        public static string ConnectingStringBuilder()
-        { 
-            return $"Server={ServerAdres}\\{ServerName};Database={DbName};User Id={User};Password={Password};";
-        }
-
 
         public void Save()
         {

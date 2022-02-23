@@ -27,18 +27,19 @@ namespace Diary.ViewModels
             DeleteStudentsCommand = new AsyncRelayCommand(DeleteStudents, CanEditDeleteStudent);
             RefreshStudentsCommand = new RelayCommand(RefreshStudents);
             SettingsCommand = new RelayCommand(NewSettings);
-            RefreshDiary();
-            InitGroups();
+            LoadedWindowCommand = new RelayCommand(LoadedWindow);
+
+            LoadedWindow(null);
+
         }
 
-        
-
+       
         public ICommand RefreshStudentsCommand { get; set; }
         public ICommand AddStudentsCommand { get; set; }
         public ICommand EditStudentsCommand { get; set; }
         public ICommand DeleteStudentsCommand { get; set; }
         public ICommand SettingsCommand { get; set; }
-
+        public ICommand LoadedWindowCommand { get; set; }
 
         private StudentWrapper _selectedStudent;
         public StudentWrapper SelectedStudent
@@ -108,7 +109,7 @@ namespace Diary.ViewModels
         }
         private void NewSettings(object obj)
         {
-            var userSettingsWindow = new UserSettingsView();
+            var userSettingsWindow = new UserSettingsView(true);
             userSettingsWindow.ShowDialog();
         }
         private void AddEditStudents(object obj)
@@ -116,6 +117,30 @@ namespace Diary.ViewModels
             var addEditStudentWindow = new AddEditStudentView(obj as StudentWrapper);
             addEditStudentWindow.Closed += addEditStudentWindow_Closed;
             addEditStudentWindow.ShowDialog();
+        }
+        private async void LoadedWindow(object obj)
+        {
+            if (!IsConnectionCorrect())
+            {
+                var metroWindow = Application.Current.MainWindow as MetroWindow;
+                var dialog = await metroWindow.ShowMessageAsync(
+                "Błąd połączenia z bazą danych!",
+                "Nie udało połączyć się z bazą danych. Czy chcesz sprawdzić swoje ustawienia?",
+                MessageDialogStyle.AffirmativeAndNegative);
+
+                if (dialog != MessageDialogResult.Affirmative)
+                    Application.Current.Shutdown();
+                else
+                {
+                    var userSettings = new UserSettingsView(false);
+                    userSettings.ShowDialog();
+                }
+            }
+            else
+            {
+                RefreshDiary();
+                InitGroups();
+            }
         }
 
         private void addEditStudentWindow_Closed(object sender, EventArgs e)
@@ -138,6 +163,21 @@ namespace Diary.ViewModels
                 _repository.GetStudents(SelectedGroupId));
         }
 
-
+        private bool IsConnectionCorrect()
+        {
+            try
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    context.Database.Connection.Open();
+                    context.Database.Connection.Close();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

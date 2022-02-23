@@ -5,14 +5,19 @@ using System.Data.Entity;
 using System.Linq;
 using Diary.Properties;
 using Diary.Models;
+using System.Runtime.InteropServices;
 
 namespace Diary
 {
     public class ApplicationDbContext : DbContext
     {
-        //public ConnectionStringSettings conn = new ConnectionStringSettings();
+        //"Server=(local)\\SQLEXPRESS;Database=Diary;User Id=afraczektraining;Password=123;"
+        private static string _conn = $@"Server={Settings.Default.ServerAdres}\{Settings.Default.ServerName};
+                                        Database={Settings.Default.DbName};
+                                        User Id={Settings.Default.User};
+                                        Password={Settings.Default.Password};";
         public ApplicationDbContext()
-            : base(UserSettings.ConnectingStringBuilder())
+            : base(_conn)
         {
         }
 

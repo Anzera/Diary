@@ -21,10 +21,10 @@ namespace Diary.Views
     /// </summary>
     public partial class UserSettingsView : MetroWindow
     {
-        public UserSettingsView()
+        public UserSettingsView(bool close)
         {
             InitializeComponent();
-            DataContext = new UserSettingsModel();
+            DataContext = new UserSettingsModel(close);
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Diary.ViewModels
     public class UserSettingsModel : ViewModelBase
     {
         private UserSettings _userSettings;
+        private bool _close;
         public UserSettings UserSettings
         {
             get
@@ -29,11 +30,12 @@ namespace Diary.ViewModels
                 OnPropertyChanged();
             }
         }
-        public UserSettingsModel()
+        public UserSettingsModel(bool close)
         {
             CloseSettingsCommand = new RelayCommand(Close);
             ConfirmSettingsCommand = new RelayCommand(Confirm);
             _userSettings = new UserSettings();
+            _close = close;
         }
 
         public ICommand CloseSettingsCommand { get; set; }
@@ -68,7 +70,10 @@ namespace Diary.ViewModels
 
         private void Close(object obj)
         {
-            CloseWindow(obj as Window);
+            if(_close)
+                CloseWindow(obj as Window);
+            else
+                Application.Current.Shutdown();
         }
 
         private void CloseWindow(Window window)

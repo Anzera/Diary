@@ -28,7 +28,7 @@ namespace Diary.Models.Wrappers
                             Error = string.Empty;
                         }
                         break;
-                    defoult:
+                    default:
                         break;
                 }
 

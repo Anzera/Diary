@@ -45,7 +45,9 @@
 
         <Label Grid.Row="1" Content="Imię:" Margin="5"/>
         <TextBox 
-            Text="{Binding Student.FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+            Text="{Binding Student.FirstName, 
+            UpdateSourceTrigger=PropertyChanged, 
+            ValidatesOnDataErrors=True}" 
             Grid.Row="1" 
             Grid.Column="1" 
             Margin="5" 
@@ -53,7 +55,9 @@
 
         <Label Grid.Row="2" Content="Nazwisko:" Margin="5"/>
         <TextBox 
-            Text="{Binding Student.LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+            Text="{Binding Student.LastName, 
+            UpdateSourceTrigger=PropertyChanged, 
+            ValidatesOnDataErrors=True}" 
             Grid.Row="2" 
             Grid.Column="1"
             Margin="5" 
@@ -105,7 +109,9 @@
             Grid.Column="1" 
             Margin="5" 
             ItemsSource="{Binding Groups}"
-            SelectedValue="{Binding Student.Group.Id, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+            SelectedValue="{Binding Student.Group.Id, 
+            UpdateSourceTrigger=PropertyChanged, 
+            ValidatesOnDataErrors=True}"
             DisplayMemberPath="Name"
             SelectedValuePath="Id"
             />
