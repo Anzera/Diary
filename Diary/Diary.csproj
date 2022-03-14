@@ -315,6 +315,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DbScripts\202201311955431_SetLastNameMaxtLengthAndRequiredInStudentsTable.sql" />
+    <SplashScreen Include="pobrane.png" />
     <Resource Include="pngfind.com-mike-wazowski-png-1093212.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
