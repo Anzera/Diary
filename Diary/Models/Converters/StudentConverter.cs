@@ -11,11 +11,11 @@ namespace Diary.Models.Converters
 {
     public static class StudentConverter
     {
-        public static StudentWrapper ToWrapper(this Student model)
+        public static StudentWrapper ToWrapper(this Student model)//konwerter z student na studentwrapper
         {
             return new StudentWrapper
             {
-                Id = model.Id,
+                Id = model.Id,//konwertuje Id (StudentWrapper) z Id (Student)
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Comments = model.Comments,
@@ -26,8 +26,8 @@ namespace Diary.Models.Converters
                     Name = model.Group.Name
                 },
                 Math = string.Join(", ", model.Ratings
-                    .Where(y => y.SubjectId == (int)Subject.Math)
-                    .Select(y => y.Rate)),
+                    .Where(y => y.SubjectId == (int)Subject.Math)//zwraca wszystkie obiekty ratings o podanym SubjectId
+                    .Select(y => y.Rate)),//wybiera tylko oceny
                 Technology = string.Join(", ", model.Ratings
                     .Where(y => y.SubjectId == (int)Subject.Technology)
                     .Select(y => y.Rate)),
@@ -56,7 +56,7 @@ namespace Diary.Models.Converters
             };
         }
 
-        public static List<Rating> ToRatingDao(this StudentWrapper model)
+        public static List<Rating> ToRatingDao(this StudentWrapper model)//konwersja ocen ze stdentwrapper
         {
             var ratings = new List<Rating>();
 

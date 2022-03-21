@@ -105,28 +105,28 @@ namespace Diary
                 .Where(x => x.SubjectId == (int)subejct)
                 .Select(x => x.Rate);
 
-            var subRatingsToDelete = subRatings.Except(newSubRatings).ToList();
-            var subRatingsToAdd = newSubRatings.Except(subRatings).ToList();
+            var subRatingsToDelete = subRatings.Except(newSubRatings).ToList();// lista ocen, które chcemy usunąć
+            var subRatingsToAdd = newSubRatings.Except(subRatings).ToList();// lista ocen do dodania
 
-            subRatingsToDelete.ForEach(x =>
+            subRatingsToDelete.ForEach(x =>//dla każdej oceny z listy ocen do usunięcia
             {
-                var ratingToDelete = context.Ratings.First(y =>
-                    y.Rate == x &&
-                    y.StudentId == student.Id &&
-                    y.SubjectId == (int)subejct);
+                var ratingToDelete = context.Ratings.First(y =>//wyszukujemy id'ki tych ocen w tabeli Ratings
+                    y.Rate == x && //wysukanie ocen, które mają taką samą wartość jak x
+                    y.StudentId == student.Id &&//są przypisane do danego studenta
+                    y.SubjectId == (int)subejct);// idanego przedmiotu
 
                 context.Ratings.Remove(ratingToDelete);
             });
 
-            subRatingsToAdd.ForEach(x =>
+            subRatingsToAdd.ForEach(x =>//dla każdej oceny z listy ocen do dodania
             {
-                var ratingToAdd = new Rating
+                var ratingToAdd = new Rating//dodajemy nową ocenę
                 {
                     Rate = x,
                     StudentId = student.Id,
                     SubjectId = (int)subejct
                 };
-                context.Ratings.Add(ratingToAdd);
+                context.Ratings.Add(ratingToAdd);//zapisa do bazy danych
             });
         }
 

@@ -30,7 +30,7 @@ namespace Diary.ViewModels
                 OnPropertyChanged();
             }
         }
-        public UserSettingsModel(bool close)
+        public UserSettingsModel(bool close)//konstruktor
         {
             CloseSettingsCommand = new RelayCommand(Close);
             ConfirmSettingsCommand = new RelayCommand(Confirm);
@@ -45,8 +45,6 @@ namespace Diary.ViewModels
         {
             if(!UserSettings.IsValid)
                 return;
-
-            UserSettings.Save();
 
             CloseWindow(obj as Window);
             RestartAsync();
@@ -63,6 +61,7 @@ namespace Diary.ViewModels
 
             if (dialog == MessageDialogResult.Affirmative) 
             {
+                UserSettings.Save();
                 Process.Start(Application.ResourceAssembly.Location);
                 Application.Current.Shutdown();
             }

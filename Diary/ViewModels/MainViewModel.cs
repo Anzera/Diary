@@ -27,7 +27,7 @@ namespace Diary.ViewModels
             DeleteStudentsCommand = new AsyncRelayCommand(DeleteStudents, CanEditDeleteStudent);
             RefreshStudentsCommand = new RelayCommand(RefreshStudents);
             SettingsCommand = new RelayCommand(NewSettings);
-            LoadedWindowCommand = new RelayCommand(LoadedWindow);
+            LoadedWindowCommand = new RelayCommand(LoadedWindow);//event odpalający się wraz z programem
 
             LoadedWindow(null);
 
@@ -120,20 +120,20 @@ namespace Diary.ViewModels
         }
         private async void LoadedWindow(object obj)
         {
-            if (!IsConnectionCorrect())
-            {
-                var metroWindow = Application.Current.MainWindow as MetroWindow;
+            if (!IsConnectionCorrect())//sprawdzanie czy połączenie z bazą danych jest poprawne
+            {//jeśli nie
+                var metroWindow = Application.Current.MainWindow as MetroWindow;//pokazanie na ekranie wiadomości o błedzie z połączeniem
                 var dialog = await metroWindow.ShowMessageAsync(
                 "Błąd połączenia z bazą danych!",
                 "Nie udało połączyć się z bazą danych. Czy chcesz sprawdzić swoje ustawienia?",
                 MessageDialogStyle.AffirmativeAndNegative);
 
-                if (dialog != MessageDialogResult.Affirmative)
-                    Application.Current.Shutdown();
-                else
+                if (dialog != MessageDialogResult.Affirmative)//jęli użytkownik nie chce poprawiać danych
+                    Application.Current.Shutdown();// aplikacja zamyka się
+                else//jeśli użytkownik chce poprawić dane do połączenia z bazą 
                 {
-                    var userSettings = new UserSettingsView(false);
-                    userSettings.ShowDialog();
+                    var userSettings = new UserSettingsView(false);//parametr przy otwieraniu okna z ustawieniami (false otwiera okno a true zamyka aplikację)
+                    userSettings.ShowDialog();//to otwiera się okno ustawień
                 }
             }
             else
