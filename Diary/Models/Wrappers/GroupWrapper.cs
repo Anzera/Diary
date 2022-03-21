@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Diary.Models.Wrappers
 {
-    public class GroupWrapper : IDataErrorInfo
+    public class GroupWrapper : IDataErrorInfo //interfejs do walidacji danych
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public string this[string columnName]
+        public string this[string columnName]// walidacja danych
         {
             get
             {

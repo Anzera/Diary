@@ -69,10 +69,10 @@ namespace Diary.ViewModels
 
         private void Close(object obj)
         {
-            if(_close)
-                CloseWindow(obj as Window);
-            else
+            if (_close)
                 Application.Current.Shutdown();
+            CloseWindow(obj as Window);
+
         }
 
         private void CloseWindow(Window window)

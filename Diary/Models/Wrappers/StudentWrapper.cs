@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Diary.Models.Wrappers
 {
-    public class StudentWrapper : IDataErrorInfo
+    public class StudentWrapper : IDataErrorInfo //interfejs do walidacji danych
     {
         public StudentWrapper()
         {
@@ -29,7 +29,7 @@ namespace Diary.Models.Wrappers
         private bool _isFirstNameValid;
         private bool _isLastNameValid;
 
-        public string this[string columnName]
+        public string this[string columnName]//walicacja danych
         {
             get
             {

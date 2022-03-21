@@ -51,6 +51,7 @@
                 SelectedValue="{Binding SelectedGroupId}"
                 DisplayMemberPath="Name"
                 SelectedValuePath="Id"
+                
                 />
             <Button 
                 Command="{Binding RefreshStudentsCommand}" 

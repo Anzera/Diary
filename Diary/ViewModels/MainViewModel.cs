@@ -109,7 +109,7 @@ namespace Diary.ViewModels
         }
         private void NewSettings(object obj)
         {
-            var userSettingsWindow = new UserSettingsView(true);
+            var userSettingsWindow = new UserSettingsView(false);//parametr false "zamyka" okno ustawień jeśli użytkownik wciśnie przycisk "Anuluj"
             userSettingsWindow.ShowDialog();
         }
         private void AddEditStudents(object obj)
@@ -132,8 +132,8 @@ namespace Diary.ViewModels
                     Application.Current.Shutdown();// aplikacja zamyka się
                 else//jeśli użytkownik chce poprawić dane do połączenia z bazą 
                 {
-                    var userSettings = new UserSettingsView(false);//parametr przy otwieraniu okna z ustawieniami (false otwiera okno a true zamyka aplikację)
-                    userSettings.ShowDialog();//to otwiera się okno ustawień
+                    var userSettingsWindow = new UserSettingsView(true);//parametr true "zamyka" aplikację w momencie kiedy użytkownik wciścnie przycisk "Anuluj"
+                    userSettingsWindow.ShowDialog();//to otwiera się okno ustawień
                 }
             }
             else
